@@ -25,19 +25,19 @@ function Invoke-Build()
     }
     
     Write-Output "Running integration tests"
-    # Tee-Object forces console redirection on vstest which magically makes Console.WriteLine works again.
-    # This allows you to see the console out of Elastic.Xunit while its running
-    & dotnet test $testIntegration -c Release | Tee-Object -Variable integ 
-    if($LASTEXITCODE -ne 0) 
-    {
-        Write-Output "The integration tests failed"
-        exit 1 
-    }
+#     # Tee-Object forces console redirection on vstest which magically makes Console.WriteLine works again.
+#     # This allows you to see the console out of Elastic.Xunit while its running
+#     & dotnet test $testIntegration -c Release | Tee-Object -Variable integ 
+#     if($LASTEXITCODE -ne 0) 
+#     {
+#         Write-Output "The integration tests failed"
+#         exit 1 
+#     }
   
     Write-Output "Creating packages"
     foreach ($project in $projects)
     {
-        & dotnet pack $project -c Release -o ..\..\artifacts  -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg /p:PackageVersion=$env:GitVersion_NuGetVersionV2    
+        & dotnet pack $project -c Release -o ..\..\artifacts  -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg /p:PackageVersion=8.50.2    
     }
   
     if($LASTEXITCODE -ne 0) 
