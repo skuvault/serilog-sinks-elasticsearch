@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <VersionPrefix>8.50.2</VersionPrefix>
+    <VersionPrefix>8.50.3</VersionPrefix>
     <VersionSuffix></VersionSuffix>
     <Authors>Michiel van Oudheusden, Martijn Laarman, Mogens Heller Grabe, Serilog Contributors</Authors>
     <TargetFrameworks>net461;netstandard2.0</TargetFrameworks>
@@ -13,10 +13,10 @@
     <PublicSign Condition=" '$(OS)' != 'Windows_NT' ">true</PublicSign>
     <PackageId>Serilog.Sinks.Elasticsearch</PackageId>
     <PackageTags>serilog;elasticsearch;logging;event;collector</PackageTags>
-    <PackageReleaseNotes>https://github.com/serilog/serilog-sinks-elasticsearch/blob/master/CHANGES.md</PackageReleaseNotes>
-    <PackageProjectUrl>https://github.com/serilog/serilog-sinks-elasticsearch</PackageProjectUrl>
+    <PackageReleaseNotes>https://github.com/skuvault/serilog-sinks-elasticsearch/blob/master/CHANGES.md</PackageReleaseNotes>
+    <PackageProjectUrl>https://github.com/skuvault/serilog-sinks-elasticsearch</PackageProjectUrl>
     <PackageLicense>Apache-2.0</PackageLicense>
-    <RepositoryUrl>https://github.com/andrey-kozlov-skuvault/serilog-sinks-elasticsearch</RepositoryUrl>
+    <RepositoryUrl>https://github.com/skuvault/serilog-sinks-elasticsearch</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <NetStandardImplicitPackageVersion Condition=" '$(TargetFramework)' == 'netstandard1.3' ">1.6.1</NetStandardImplicitPackageVersion>
     <GenerateAssemblyTitleAttribute>false</GenerateAssemblyTitleAttribute>

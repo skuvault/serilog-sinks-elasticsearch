@@ -8,7 +8,7 @@
     <language>en-US</language>
     <projectUrl>http://serilog.net</projectUrl>
     <license type="expression">Apache-2.0</license>
-    <repository type="git" url="https://github.com/serilog/serilog-sinks-elasticsearch" />
+    <repository type="git" url="https://github.com/skuvault/serilog-sinks-elasticsearch" />
     <tags>serilog logging elasticsearch</tags>
     <dependencies>
       <dependency id="Serilog" version="2.6.0" />
