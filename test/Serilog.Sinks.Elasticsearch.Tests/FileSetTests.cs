@@ -72,14 +72,14 @@ public class FileSetTests : IDisposable
     public void GetBufferFiles_BothNewAndOldHourlyFormatsAreSupported_andOldSortedFirst()
     {
         // Arrange
-        var rollingInterval = RollingInterval.Hour;
-        var oldFormat = "yyyyMMdd-HH";
+        const RollingInterval rollingInterval = RollingInterval.Hour;
+        const string oldFormat = "yyyyMMdd-HH";
         var newFormat = rollingInterval.GetFormat();
         _bufferFileNames = new Dictionary<RollingInterval, string>
         {
             {RollingInterval.Hour, GenerateBufferFile(oldFormat, oldFormat)},
             // adding with arbitrary interval to Dictionary for a proper clean up (already have Hour filled)
-            {RollingInterval.Day, GenerateBufferFile(oldFormat, newFormat)}
+            {RollingInterval.Day, GenerateBufferFile(newFormat, newFormat)}
         };
         var fileSet = new FileSet(_fileNameBase, rollingInterval);
         var hourlyBufferFileForOldFormat = _bufferFileNames[RollingInterval.Hour];
@@ -89,8 +89,7 @@ public class FileSetTests : IDisposable
         var bufferFiles = fileSet.GetBufferFiles();
 
         // Assert
-        bufferFiles.ShouldBeEquivalentTo(new[] {hourlyBufferFileForOldFormat, hourlyBufferFileForNewFormat},
-            options => options.WithStrictOrdering());
+        bufferFiles.Should().Equal(hourlyBufferFileForOldFormat, hourlyBufferFileForNewFormat);
     }
 
     /// <summary>
