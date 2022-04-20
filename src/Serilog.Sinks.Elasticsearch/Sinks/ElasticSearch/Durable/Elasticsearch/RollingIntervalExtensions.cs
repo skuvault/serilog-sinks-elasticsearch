@@ -45,13 +45,17 @@ namespace Serilog.Sinks.Elasticsearch.Durable
                     return "\\d{8}";
                 case RollingInterval.Hour:
                     //return "\\d{10}";
-                    // VT-5543: Added here to support old hour format - "yyyyMMdd-HH". Can be removed after migration in favor of commented line
-                    return "((\\d{8}-\\d{2})|(\\d{10}))";
+                    // VT-5543: Added old format to support old hour format - "yyyyMMdd-HH". Can be removed after migration in favor of commented line
+                    return "(("+OldHourlyDateRegExp+")|(\\d{10}))";
                 case RollingInterval.Minute:
                     return "\\d{12}";
                 default:
                     throw new ArgumentException("Invalid rolling interval");
             }
         }
+
+        // VT-5543: These could be removed after migration
+        internal const string OldHourlyDateFormat = "yyyyMMdd-HH";
+        internal const string OldHourlyDateRegExp = "\\d{8}-\\d{2}";
     }
 }

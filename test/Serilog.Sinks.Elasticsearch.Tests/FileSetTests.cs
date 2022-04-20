@@ -55,7 +55,7 @@ public class FileSetTests : IDisposable
     {
         // Arrange
         var rollingInterval = RollingInterval.Hour;
-        var format = "yyyyMMdd-HH";
+        var format = RollingIntervalExtensions.OldHourlyDateFormat;
         _bufferFileNames = GenerateFilesUsingFormat(format);
         var fileSet = new FileSet(_fileNameBase, rollingInterval);
         var bufferFileForInterval = _bufferFileNames[rollingInterval];

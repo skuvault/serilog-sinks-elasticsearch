@@ -125,7 +125,7 @@ public class ElasticsearchPayloadReaderTests : IDisposable
     {
         // Arrange
         var rollingInterval = RollingInterval.Hour;
-        var format = "yyyyMMdd-HH";
+        var format = RollingIntervalExtensions.OldHourlyDateFormat;
         var payloadReader = new ElasticsearchPayloadReader("testPipelineName",
             "TestTypeName",
             null,
