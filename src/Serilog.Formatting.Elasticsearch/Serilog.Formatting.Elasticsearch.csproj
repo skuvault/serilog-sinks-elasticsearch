@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
     
   <PropertyGroup>
-    <VersionPrefix>8.50.3</VersionPrefix>
+    <VersionPrefix>8.51.1</VersionPrefix>
     <VersionSuffix></VersionSuffix>
     <Authors>Michiel van Oudheusden, Martijn Laarman, Mogens Heller Grabe, Serilog Contributors</Authors>
     <TargetFrameworks>net45;netstandard1.3;netstandard2.0</TargetFrameworks>

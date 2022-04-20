@@ -37,7 +37,7 @@ function Invoke-Build()
     Write-Output "Creating packages"
     foreach ($project in $projects)
     {
-        & dotnet pack $project -c Release -o ..\..\artifacts  -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg /p:PackageVersion=8.50.3    
+        & dotnet pack $project -c Release -o ..\..\artifacts  -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg /p:PackageVersion=8.51.1    
     }
   
     if($LASTEXITCODE -ne 0) 
