@@ -44,7 +44,9 @@ namespace Serilog.Sinks.Elasticsearch.Durable
                 case RollingInterval.Day:
                     return "\\d{8}";
                 case RollingInterval.Hour:
-                    return "\\d{10}";
+                    //return "\\d{10}";
+                    // VT-5543: Added here to support old hour format - "yyyyMMdd-HH". Can be removed after migration in favor of commented line
+                    return "((\\d{8}-\\d{2})|(\\d{10}))";
                 case RollingInterval.Minute:
                     return "\\d{12}";
                 default:

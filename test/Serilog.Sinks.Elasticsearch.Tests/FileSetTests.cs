@@ -49,6 +49,7 @@ public class FileSetTests : IDisposable
     }
 
     [Fact]
+    // VT-5543: Can be removed after migration to new format
     // Ensures that date format "yyyyMMdd-HH" is supported by Hourly interval. This date format was for Hourly files before move to standard "yyyyMMddHH"
     public void GetBufferFiles_SupportOldHourlyFormat()
     {
@@ -68,6 +69,7 @@ public class FileSetTests : IDisposable
 
 
     [Fact]
+    // VT-5543: Can be removed after migration to new format
     // Ensures that both date formats are supported simultaneously: "yyyyMMdd-HH"(old) and "yyyyMMddHH" (new)
     public void GetBufferFiles_BothNewAndOldHourlyFormatsAreSupported_andOldSortedFirst()
     {
