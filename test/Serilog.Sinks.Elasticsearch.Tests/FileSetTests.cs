@@ -48,14 +48,18 @@ public class FileSetTests : IDisposable
         bufferFiles.Should().BeEquivalentTo(bufferFileForInterval);
     }
 
-    [Fact]
+    [Theory]
+    [InlineData(RollingIntervalExtensions.OldHourlyDateFormat)]
+    [InlineData("yyyyMMdd-HH_001")]
+    [InlineData("yyyyMMdd-HH_010")]
+    [InlineData("yyyyMMdd-HH_100")]
+    [InlineData("yyyyMMdd-HH_1000")]
     // VT-5543: Can be removed after migration to new format
     // Ensures that date format "yyyyMMdd-HH" is supported by Hourly interval. This date format was for Hourly files before move to standard "yyyyMMddHH"
-    public void GetBufferFiles_SupportOldHourlyFormat()
+    public void GetBufferFiles_SupportOldHourlyFormat(string format)
     {
         // Arrange
         var rollingInterval = RollingInterval.Hour;
-        var format = RollingIntervalExtensions.OldHourlyDateFormat;
         _bufferFileNames = GenerateFilesUsingFormat(format);
         var fileSet = new FileSet(_fileNameBase, rollingInterval);
         var bufferFileForInterval = _bufferFileNames[rollingInterval];
@@ -75,11 +79,10 @@ public class FileSetTests : IDisposable
     {
         // Arrange
         const RollingInterval rollingInterval = RollingInterval.Hour;
-        const string oldFormat = "yyyyMMdd-HH";
         var newFormat = rollingInterval.GetFormat();
         _bufferFileNames = new Dictionary<RollingInterval, string>
         {
-            {RollingInterval.Hour, GenerateBufferFile(oldFormat, oldFormat)},
+            {RollingInterval.Hour, GenerateBufferFile(RollingIntervalExtensions.OldHourlyDateFormat, RollingIntervalExtensions.OldHourlyDateFormat)},
             // adding with arbitrary interval to Dictionary for a proper clean up (already have Hour filled)
             {RollingInterval.Day, GenerateBufferFile(newFormat, newFormat)}
         };

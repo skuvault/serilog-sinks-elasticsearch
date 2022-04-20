@@ -118,14 +118,18 @@ public class ElasticsearchPayloadReaderTests : IDisposable
             .WithMessage("Rolling intervals less frequent than RollingInterval.Day are not supported");
     }
     
-    [Fact]
+    [Theory]
+    [InlineData(RollingIntervalExtensions.OldHourlyDateFormat)]
+    [InlineData("yyyyMMdd-HH_001")]
+    [InlineData("yyyyMMdd-HH_010")]
+    [InlineData("yyyyMMdd-HH_100")]
+    [InlineData("yyyyMMdd-HH_1000")]
     // VT-5543: Can be removed after migration to new format
     // Ensures that reader understands old hourly date format "yyyyMMdd-HH" for buffer files. This date format was for Hourly files before move to standard "yyyyMMddHH"
-    public void ReadPayload_ShouldReadOldHourlyDateFormat()
+    public void ReadPayload_ShouldReadOldHourlyDateFormat(string format)
     {
         // Arrange
         var rollingInterval = RollingInterval.Hour;
-        var format = RollingIntervalExtensions.OldHourlyDateFormat;
         var payloadReader = new ElasticsearchPayloadReader("testPipelineName",
             "TestTypeName",
             null,
