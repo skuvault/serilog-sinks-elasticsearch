@@ -117,4 +117,42 @@ public class ElasticsearchPayloadReaderTests : IDisposable
         act.ShouldThrow<ArgumentException>()
             .WithMessage("Rolling intervals less frequent than RollingInterval.Day are not supported");
     }
+    
+    [Fact]
+    // VT-5543: Can be removed after migration to new format
+    // Ensures that reader understands old hourly date format "yyyyMMdd-HH" for buffer files. This date format was for Hourly files before move to standard "yyyyMMddHH"
+    public void ReadPayload_ShouldReadOldHourlyDateFormat()
+    {
+        // Arrange
+        var rollingInterval = RollingInterval.Hour;
+        var format = "yyyyMMdd-HH";
+        var payloadReader = new ElasticsearchPayloadReader("testPipelineName",
+            "TestTypeName",
+            null,
+            (_, _) => "TestIndex",
+            ElasticOpType.Index,
+            rollingInterval);
+        var lines = new[]
+        {
+            rollingInterval.ToString()
+        };
+        _bufferFileName = string.Format(_tempFileFullPathTemplate,
+            string.IsNullOrEmpty(format) ? string.Empty : new DateTime(2000, 1, 1).ToString(format));
+        // Important to use UTF8 with BOM if we are starting from 0 position 
+        System.IO.File.WriteAllLines(_bufferFileName, lines, new UTF8Encoding(true));
+
+        // Act
+        var fileSetPosition = new FileSetPosition(0, _bufferFileName);
+        var count = 0;
+        var payload = payloadReader.ReadPayload(int.MaxValue,
+            null,
+            ref fileSetPosition,
+            ref count,
+            _bufferFileName);
+
+        // Assert
+        // Thus we ensure that file was properly handled by PayloadReader  
+        payload.Count.Should().Be(lines.Length * 2);
+        payload[1].Should().Be(lines[0]);
+    }
 }
